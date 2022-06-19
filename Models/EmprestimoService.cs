@@ -38,6 +38,9 @@ namespace Biblioteca.Models
             using(BibliotecaContext bc = new BibliotecaContext())
             {
                 return bc.Emprestimos.Include(e => e.Livro).ToList();
+
+                
+                
             }
         }
 

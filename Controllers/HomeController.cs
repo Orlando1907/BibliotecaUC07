@@ -49,5 +49,14 @@ namespace Biblioteca.Controllers
         {
             return View();
         }
+        public IActionResult CadastroUsuarioCreate()
+        {
+            return View();
+        }
+
+        public IActionResult CadastroUsuarioStore()
+        {
+            return View();
+        }
     }
 }
