@@ -12,16 +12,12 @@ namespace Biblioteca.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        
 
         public IActionResult Index()
         {
             Autenticacao.CheckLogin(this);
+            ViewData["Mensagem"] = "seja bem vindo ao sistema de controle de emprestimo de livros";
             return View();
         }
 
@@ -49,14 +45,21 @@ namespace Biblioteca.Controllers
         {
             return View();
         }
-        public IActionResult CadastroUsuarioCreate()
+        public IActionResult CadastroUsuario()
+        {
+            return View();
+        }
+        
+        public IActionResult Sucesso()
         {
             return View();
         }
 
-        public IActionResult CadastroUsuarioStore()
+        public IActionResult Livros()
         {
             return View();
         }
+
+        
     }
 }

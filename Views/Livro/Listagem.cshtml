@@ -1,51 +1,99 @@
+@using Biblioteca.Models
 @model List<Livro>
 @{
     ViewData["Title"] = "Listagem de Livros";
 }
 <div class="row">
     <div class="col-md-12">
-    <form class="form-inline" method="POST">
-        <div class="form-group mb-2">
-            <select name="TipoFiltro" class="form-control">
-                <option value="Autor">Autor</option>
-                <option value="Titulo">Título</option>
-            </select>
-        </div>
-        <div class="form-group mb-2 mx-sm-3">
-            <input type="text" placeholder="Filtro" name="Filtro" class="form-control" />
-        </div>
-        <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
-    </form>
+        <form class="form-inline" method="POST">
+            <div class="form-group mb-2">
+                <select name="TipoFiltro" class="form-control">
+                    <option value="Autor">Autor</option>
+                    <option value="Titulo">Título</option>
+                </select>
+            </div>
+            <div class="form-group mb-2 mx-sm-3">
+                <input type="text" placeholder="Filtro" name="Filtro" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Pesquisar</button>
+        </form>
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-12">
-                @if (@Model.Count>0) {
-        <table class="table table-striped"> 
-            <thead>
-                <tr><th>Id</th>
-                <th>Titulo</th>
-                <th>Autor</th>
-                <th>Ano</th>
-                <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach(Livro l in Model)
-                {
-                <tr>
-                    <td>@l.Id</td>
-                    <td>@l.Titulo</td>
-                    <td>@l.Autor</td>
-                    <td>@l.Ano</td>
-                    <td><a href="/Livro/Edicao/@l.Id">Editar</a></td>
-                </tr>
-                }
-            </tbody>
-        </table>
-        } else{
+        @if (@Model.Count > 0)
+        {
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Titulo</th>
+                        <th>Autor</th>
+                        <th>Ano</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Livro l in Model)
+                    {
+                        <tr>
+                            <td>@l.Id</td>
+                            <td>@l.Titulo</td>
+                            <td>@l.Autor</td>
+                            <td>@l.Ano</td>
+                            <td><a href="/Livro/Edicao/@l.Id">Editar</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
             <p>Nenhum registro encontrado!</p>
         }
     </div>
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="Emprestimo\Livros">1</a></li>
+            <li class="page-item active">
+                <span class="page-link">
+                    2
+                    <span class="sr-only">(atual)</span>
+                </span>
+            </li>
+            </li>
+        </ul>
+        <script>
+
+            // total de páginas
+            $total = 2;
+
+            // número máximo de links da paginação
+            $max_links = 10;
+
+
+            // página corrente
+            $pagina = 3;
+
+            // calcula quantos links haverá à esquerda e à direita da página corrente
+            // usa-se ceil() para assegurar que o número será inteiro
+            $links_laterais = ceil($max_links / 2);
+
+            // variáveis para o loop
+            $inicio = $pagina - $links_laterais;
+            $limite = $pagina + $links_laterais;
+
+            for ($i = $inicio; $i <= $limite; $i++) {
+                if ($i == $pagina) {
+  echo " <strong>".$i. "</strong> ";
+                }
+                else {
+                    if ($i >= 1 && $i <= $total) {
+   echo " <a href=\"Listagem.cshtml?pagina=".$i. "\">".$i. "</a> ";
+                    }
+                }
+            }
+        </script>
+    </nav>
 </div>
